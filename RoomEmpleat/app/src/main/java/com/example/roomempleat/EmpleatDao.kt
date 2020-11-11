@@ -12,9 +12,9 @@ interface EmpleatDao {
     fun getEmpleats(): List<Empleat>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insert(e: Empleat)
+    fun insert(e: Empleat)
 
     @Query("DELETE FROM Empleat")
-    suspend fun deleteAll()
+    fun deleteAll()
 
 }
