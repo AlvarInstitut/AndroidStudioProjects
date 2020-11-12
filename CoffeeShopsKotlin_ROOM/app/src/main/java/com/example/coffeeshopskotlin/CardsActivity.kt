@@ -11,6 +11,21 @@ class CardsActivity : AppCompatActivity() {
 
     private var items: ArrayList<Tarjeta>? = null
 
+    private var sqlThread: Thread = object : Thread() {
+        override fun run() {
+            val db = Room.databaseBuilder(
+                applicationContext,
+                LocalDatabase::class.java, "coffeeshops.sqlite"
+            ).build()
+
+            var locals = db.localDao().getLocals()
+
+            for (l in locals)
+                items!!.add(Tarjeta(l.imatge!!, l.num.toString()!!, l.nom!!))
+
+
+        }
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cards)
@@ -24,9 +39,9 @@ class CardsActivity : AppCompatActivity() {
         items!!.add(Tarjeta(R.drawable.images5, "Coffee Corner","St. Àngel Guimerà, Valencia"))
         items!!.add(Tarjeta(R.drawable.images6, "Sweet Cup","St.Kinkerstraat, Amsterdam")) */
 
-        val db = Room.databaseBuilder(
+/*        val db = Room.databaseBuilder(
             applicationContext,
-            LocalDatabase::class.java, "CoffeeShops.sqlite"
+            LocalDatabase::class.java, "coffeeshops.sqlite"
         ).build()
 
         var locals = db.localDao().getLocals()
@@ -34,15 +49,26 @@ class CardsActivity : AppCompatActivity() {
         for (l in locals)
             items!!.add(Tarjeta(l.imatge!!, l.num.toString()!!, l.nom!!))
 
+*/
 
         val toolbar = findViewById(R.id.toolbar) as Toolbar
         setSupportActionBar(toolbar)
-
         val recView = findViewById(R.id.recView) as RecyclerView
         recView.setHasFixedSize(true)
+        sqlThread.start()
+
+        // i ara esperem a que finalitze el thread fill unint-lo (join)
+        try {
+            sqlThread.join()
+        } catch (e: InterruptedException) {
+            println("Sembla que ha anat malament")
+            e.printStackTrace()
+        }
+
         val adaptador = CardsAdapter(items!!)
 
         recView.adapter = adaptador
         recView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+
     }
 }
