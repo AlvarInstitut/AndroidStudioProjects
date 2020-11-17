@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">CoffeShopsROOM</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_search">Search</string>
+    <string name="action_heart">Like</string>
+    <string name="action_share">Share</string>
+    <string name="reserve">Reserve</string>
+
+</resources>
