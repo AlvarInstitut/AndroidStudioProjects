@@ -34,8 +34,8 @@ class CardsAdapter(private val items: ArrayList<Tarjeta>) : RecyclerView.Adapter
             val img = t.imatge
             val imgBmp = BitmapFactory.decodeByteArray(img, 0, img.size)
             imagen.setImageBitmap(imgBmp)
-            text.text = t.num
-            text1.text = t.nom
+            text.text = t.nom
+            text1.text = t.adreca
             barstars.onRatingBarChangeListener = RatingBar.OnRatingBarChangeListener { ratingBar: RatingBar, fl: Float, b: Boolean ->
                     puntos.text = fl.toString()
                 }

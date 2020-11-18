@@ -38,8 +38,12 @@ class SecondFragment : Fragment() {
 
         val root = inflater.inflate(R.layout.fragment_second, container, false)
         val texto: TextView =  root.findViewById(R.id.textview_second)
-        texto.text = arguments?.getString("local")
-        comentarios.add(Comentario(arguments?.getString("local")!!))
+//        texto.text = arguments?.getString("local")
+//        comentarios.add(Comentario(arguments?.getString("coments")!!))
+        val l = arguments?.get("local") as LocalsAmbComentaris
+        texto.text = l.local.nom
+        for (c in l.coms)
+            comentarios.add(Comentario(c.comentari!!))
 
         val recView: RecyclerView = root.findViewById(R.id.recyclerview_coment)
         recView.setHasFixedSize(true)

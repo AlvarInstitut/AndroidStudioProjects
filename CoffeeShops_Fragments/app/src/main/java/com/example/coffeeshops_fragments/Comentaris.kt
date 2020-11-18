@@ -8,5 +8,5 @@ import androidx.room.PrimaryKey
 data class Comentaris (
     @PrimaryKey @ColumnInfo(name = "id_com") val idCom: Int?,
     @ColumnInfo(name = "num_local") val numLocal: Int?,
-    @ColumnInfo(name = "comentari") val cmentari: String?
+    @ColumnInfo(name = "comentari") val comentari: String?
 )

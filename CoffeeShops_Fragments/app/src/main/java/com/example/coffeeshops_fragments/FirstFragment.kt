@@ -67,7 +67,11 @@ class FirstFragment : Fragment() {
         adaptador.onClick = {
             val t = items[recView.getChildAdapterPosition(it)]
             val l = localsAmbComentaris[recView.getChildAdapterPosition(it)]
-            val bundle = bundleOf("local" to t.nom,"coms" to l.coms.toString())
+/*            var coments = ""
+            for (c in l.coms)
+		        coments += c.comentari + "\n"
+            val bundle = bundleOf("local" to l.local.nom,"coments" to coments)*/
+            val bundle = bundleOf("local" to l)
             findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment, bundle)
         }
         return root
