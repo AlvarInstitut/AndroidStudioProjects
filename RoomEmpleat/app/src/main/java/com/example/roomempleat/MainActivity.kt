@@ -14,7 +14,9 @@ class MainActivity : AppCompatActivity() {
             val db = Room.databaseBuilder(
                 applicationContext,
                 EmpleatDatabase::class.java, "Empleats.sqlite"
-            ).build()
+            )
+                    .createFromAsset("Empleats.sqlite")
+                    .build()
 
             val e1 = Empleat(5,"Elena",10,25,2500.0)
             db.empleatDao().insert(e1)
