@@ -16,7 +16,7 @@ import androidx.room.Room
  */
 class FirstFragment : Fragment() {
 
-    private lateinit var items: ArrayList<Tarjeta>
+    private var items: ArrayList<Tarjeta> = ArrayList()
     private lateinit var localsAmbComentaris: List<LocalsAmbComentaris>
     private var sqlThread: Thread = object : Thread() {
         override fun run() {
@@ -38,16 +38,9 @@ class FirstFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        val root = inflater.inflate(R.layout.fragment_first, container, false)
-        items = ArrayList()
-/*        items.add(Tarjeta(R.drawable.images, "Antico Caffè Greco", "St. Italy, Rome"))
-        items.add(Tarjeta(R.drawable.images1, "Coffee Room", "St. Germany, Berlin "))
-        items.add(Tarjeta(R.drawable.images2, "Coffee Ibiza", "St. Colon, Madrid"))
-        items.add(Tarjeta(R.drawable.images3, "Pudding Coffee Shop", "St. Diagonal, Barcelona"))
-        items.add(Tarjeta(R.drawable.images4, "L'Express", "St. Picadilly Circus, London"))
-        items.add(Tarjeta(R.drawable.images5, "Coffee Corner", "St. Àngel Guimerà, Valencia"))
-        items.add(Tarjeta(R.drawable.images6, "Sweet Cup", "St.Kinkerstraat, Amsterdam"))
-*/
+    val root = inflater.inflate(R.layout.fragment_first, container, false)
+
+    if (items.size==0) {
         sqlThread.start()
 
         // i ara esperem a que finalitze el thread fill unint-lo (join)
@@ -57,6 +50,7 @@ class FirstFragment : Fragment() {
             println("Sembla que ha anat malament")
             e.printStackTrace()
         }
+    }
         val recView: RecyclerView = root.findViewById(R.id.recView)
         recView.setHasFixedSize(true)
         val adaptador = CardsAdapter(items)
@@ -67,10 +61,7 @@ class FirstFragment : Fragment() {
         adaptador.onClick = {
             val t = items[recView.getChildAdapterPosition(it)]
             val l = localsAmbComentaris[recView.getChildAdapterPosition(it)]
-/*            var coments = ""
-            for (c in l.coms)
-		        coments += c.comentari + "\n"
-            val bundle = bundleOf("local" to l.local.nom,"coments" to coments)*/
+
             val bundle = bundleOf("local" to l)
             findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment, bundle)
         }
