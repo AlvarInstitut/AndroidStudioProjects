@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class ComentsAdapter(private val items: ArrayList<Comentario>) : RecyclerView.Adapter<ComentsAdapter.TarjViewHolder>() {
+class ComentsAdapter(private val items: List<Comentaris>) : RecyclerView.Adapter<ComentsAdapter.TarjViewHolder>() {
 
     class TarjViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
@@ -16,8 +16,8 @@ class ComentsAdapter(private val items: ArrayList<Comentario>) : RecyclerView.Ad
             texto = itemView.findViewById(R.id.cita)
         }
 
-        fun bindComentario(c: Comentario ) {
-            texto.text = c.comen1
+        fun bindComentario(c: Comentaris ) {
+            texto.text = c.comentari
         }
     }
 

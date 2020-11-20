@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
  */
 class SecondFragment : Fragment() {
 
-    private lateinit var comentarios: ArrayList<Comentario>
+    private lateinit var comentarios: ArrayList<Comentaris>
 
 
     override fun onCreateView(
@@ -29,12 +29,10 @@ class SecondFragment : Fragment() {
 
         val l = arguments?.get("local") as LocalsAmbComentaris
         texto.text = l.local.nom
-        for (c in l.coms)
-            comentarios.add(Comentario(c.comentari!!))
 
         val recView: RecyclerView = root.findViewById(R.id.recyclerview_coment)
         recView.setHasFixedSize(true)
-        val adaptador = ComentsAdapter(comentarios)
+        val adaptador = ComentsAdapter(l.coms)
 
         recView.adapter = adaptador
         recView.layoutManager = GridLayoutManager(context, 2)

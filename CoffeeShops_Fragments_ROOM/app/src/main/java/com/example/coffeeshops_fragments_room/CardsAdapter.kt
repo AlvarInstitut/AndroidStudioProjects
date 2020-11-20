@@ -9,7 +9,7 @@ import android.widget.RatingBar
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class CardsAdapter(private val items: ArrayList<Tarjeta>) : RecyclerView.Adapter<CardsAdapter.TarjViewHolder>() {
+class CardsAdapter(private val items: List<Local>) : RecyclerView.Adapter<CardsAdapter.TarjViewHolder>() {
 
     lateinit var onClick: (View) -> Unit
 
@@ -29,13 +29,17 @@ class CardsAdapter(private val items: ArrayList<Tarjeta>) : RecyclerView.Adapter
             barstars = itemView.findViewById(R.id.ratingBar)
         }
 
-        fun bindCards(t: Tarjeta, onClick: (View) -> Unit) {
+        fun bindCards(t: Local, onClick: (View) -> Unit) {
             //imagen.setImageResource(t.imag)
             val img = t.imatge
-            val imgBmp = BitmapFactory.decodeByteArray(img, 0, img.size)
+            val imgBmp = BitmapFactory.decodeByteArray(img, 0, img!!.size)
             imagen.setImageBitmap(imgBmp)
             text.text = t.nom
             text1.text = t.adreca
+            if (t.punts!=null) {
+                barstars.rating = t.punts.toFloat()
+                puntos.text = t.punts.toString()
+            }
             barstars.onRatingBarChangeListener = RatingBar.OnRatingBarChangeListener { ratingBar: RatingBar, fl: Float, b: Boolean ->
                     puntos.text = fl.toString()
                 }

@@ -6,5 +6,8 @@ import androidx.room.Query
 @Dao
 interface LocalDao {
     @Query("SELECT * FROM LOCAL")
-    fun getLocals(): List<LocalsAmbComentaris>
+    fun getLocalsAmbComentaris(): List<LocalsAmbComentaris>
+
+    @Query("SELECT * FROM LOCAL")
+    fun getLocals(): List<Local>
 }

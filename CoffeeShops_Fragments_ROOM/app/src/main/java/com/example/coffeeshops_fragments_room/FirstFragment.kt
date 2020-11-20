@@ -16,21 +16,21 @@ import androidx.room.Room
  */
 class FirstFragment : Fragment() {
 
-    private var items: ArrayList<Tarjeta> = ArrayList()
+    private var items: List<Local> = ArrayList()
     private lateinit var localsAmbComentaris: List<LocalsAmbComentaris>
     private var sqlThread: Thread = object : Thread() {
         override fun run() {
             val db = Room.databaseBuilder(
                 requireActivity().baseContext,
-                CoffeeShopsDatabase::class.java, "CoffeeShops.sqlite"
+                CoffeeShopsDatabase::class.java, "CoffeeShops.db"
             )
-                .createFromAsset("CoffeeShops.sqlite")
+                .createFromAsset("CoffeeShops.db")
                 .build()
 
-            localsAmbComentaris = db.localDao().getLocals()
-
-            for (l in localsAmbComentaris)
-                items.add(Tarjeta(l.local.imatge!!, l.local.nom!!, l.local.adreca!!))
+            localsAmbComentaris = db.localDao().getLocalsAmbComentaris()
+            items = db.localDao().getLocals()
+            //for (l in localsAmbComentaris)
+            //    items.add((l.local))
 
 
         }
@@ -61,7 +61,6 @@ class FirstFragment : Fragment() {
         recView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
 
         adaptador.onClick = {
-            //val t = items[recView.getChildAdapterPosition(it)]
             val l = localsAmbComentaris[recView.getChildAdapterPosition(it)]
 
             val bundle = bundleOf("local" to l)
