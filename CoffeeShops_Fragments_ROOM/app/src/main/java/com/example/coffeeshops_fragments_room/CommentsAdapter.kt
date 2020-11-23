@@ -19,7 +19,7 @@ class CommentsAdapter(private val items: ArrayList<Comment>) : RecyclerView.Adap
         }
 
         fun bindComment(c: Comment ) {
-            texto.text = c.comm1
+            texto.text = c.comm
         }
     }
 

@@ -26,14 +26,16 @@ class SecondFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        Comments = ArrayList()
+/*      Comments = ArrayList()
         Comments.add(Comment("Acogedor"))
         Comments.add(Comment("Buenos precios"))
         Comments.add(Comment("Servicio algo flojo"))
-
+*/
         val root = inflater.inflate(R.layout.fragment_second, container, false)
         val texto: TextView =  root.findViewById(R.id.textview_second)
-        texto.text = arguments?.getString("NOM")
+        val coffee = arguments?.get("coffee") as CoffeeWithComments
+        texto.text = coffee.coffee.title
+        Comments=ArrayList(coffee.coms)
 
         val recView: RecyclerView = root.findViewById(R.id.recyclerview_coment)
         recView.setHasFixedSize(true)

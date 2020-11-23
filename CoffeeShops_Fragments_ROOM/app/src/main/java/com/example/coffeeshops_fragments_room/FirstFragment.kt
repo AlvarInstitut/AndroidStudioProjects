@@ -9,13 +9,27 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.room.Room
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
  */
 class FirstFragment : Fragment() {
 
-    private lateinit var items: ArrayList<Coffee>
+    private var items: ArrayList<Coffee> = ArrayList()
+    private var itemsWithComments: ArrayList<CoffeeWithComments> = ArrayList()
+
+    private var roomThread: Thread = object : Thread() {
+        override fun run() {
+            val db = Room.databaseBuilder(
+                    context!!,
+                    CoffeeShopsDatabase::class.java, "CoffeeShops.sqlite"
+            ).createFromAsset("CoffeeShops.sqlite").build()
+
+            items = ArrayList(db.coffeeshopsDao().getCoffees())
+            itemsWithComments = ArrayList(db.coffeeshopsDao().getCoffeesWithComments())
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -23,14 +37,11 @@ class FirstFragment : Fragment() {
     ): View? {
 
         val root = inflater.inflate(R.layout.fragment_first, container, false)
-        items = ArrayList()
-        items.add(Coffee("Antico Caffè Greco", "St. Italy, Rome",R.drawable.images))
-        items.add(Coffee( "Coffee Room", "St. Germany, Berlin ",R.drawable.images1))
-        items.add(Coffee( "Coffee Ibiza", "St. Colon, Madrid",R.drawable.images2))
-        items.add(Coffee("Pudding Coffee Shop", "St. Diagonal, Barcelona",R.drawable.images3))
-        items.add(Coffee("L'Express", "St. Picadilly Circus, London",R.drawable.images4))
-        items.add(Coffee("Coffee Corner", "St. Àngel Guimerà, Valencia",R.drawable.images5))
-        items.add(Coffee("Sweet Cup", "St.Kinkerstraat, Amsterdam",R.drawable.images6))
+
+        if (items.size==0) {  // per a no executar-lo una altra vegada quan tornem del SecondFragment
+            roomThread.start()
+            roomThread.join()
+        }
 
         val recView: RecyclerView = root.findViewById(R.id.recView)
         recView.setHasFixedSize(true)
@@ -40,8 +51,8 @@ class FirstFragment : Fragment() {
         recView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
 
         adaptador.onClick = {
-            val t = items[recView.getChildAdapterPosition(it)]
-            val bundle = bundleOf("NOM" to t.title)
+            val c = itemsWithComments[recView.getChildAdapterPosition(it)]
+            val bundle = bundleOf("coffee" to c)
             findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment, bundle)
         }
         return root
@@ -52,5 +63,3 @@ class FirstFragment : Fragment() {
 
         }
 }
-
-
