@@ -8,11 +8,11 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.CoffeeShops_Fragments_Room">
+        android:theme="@style/Theme.CoffeeShops_Fragments_ROOM">
         <activity
-            android:name="com.example.coffeeshops_fragments_room.MainActivity"
+            android:name=".MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/Theme.CoffeeShops_Fragments_Room.NoActionBar">
+            android:theme="@style/Theme.CoffeeShops_Fragments_ROOM.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

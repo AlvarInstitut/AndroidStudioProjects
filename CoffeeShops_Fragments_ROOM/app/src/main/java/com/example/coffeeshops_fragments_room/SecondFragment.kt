@@ -4,9 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 /**
@@ -14,7 +18,7 @@ import androidx.recyclerview.widget.RecyclerView
  */
 class SecondFragment : Fragment() {
 
-    private lateinit var comentarios: ArrayList<Comentaris>
+    private lateinit var Comments: ArrayList<Comment>
 
 
     override fun onCreateView(
@@ -22,17 +26,18 @@ class SecondFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        comentarios = ArrayList()
+        Comments = ArrayList()
+        Comments.add(Comment("Acogedor"))
+        Comments.add(Comment("Buenos precios"))
+        Comments.add(Comment("Servicio algo flojo"))
 
         val root = inflater.inflate(R.layout.fragment_second, container, false)
         val texto: TextView =  root.findViewById(R.id.textview_second)
-
-        val l = arguments?.get("local") as LocalsAmbComentaris
-        texto.text = l.local.nom
+        texto.text = arguments?.getString("NOM")
 
         val recView: RecyclerView = root.findViewById(R.id.recyclerview_coment)
         recView.setHasFixedSize(true)
-        val adaptador = ComentsAdapter(l.coms)
+        val adaptador = CommentsAdapter(Comments)
 
         recView.adapter = adaptador
         recView.layoutManager = GridLayoutManager(context, 2)
@@ -43,7 +48,7 @@ class SecondFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-/*        view.findViewById<Button>(R.id.button_second).setOnClickListener {
+      /*  view.findViewById<Button>(R.id.button_second).setOnClickListener {
            findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
         }*/
     }
