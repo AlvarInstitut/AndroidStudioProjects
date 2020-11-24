@@ -38,6 +38,8 @@ class CoffeeAdapter(private val items: ArrayList<Coffee>) : RecyclerView.Adapter
             }
             text.text = t.title
             text1.text = t.subtitle
+            if (t.points!=null)
+                barstars.rating = t.points.toFloat()
             barstars.onRatingBarChangeListener = RatingBar.OnRatingBarChangeListener { ratingBar: RatingBar, fl: Float, b: Boolean ->
                     points.text = fl.toString()
                 }

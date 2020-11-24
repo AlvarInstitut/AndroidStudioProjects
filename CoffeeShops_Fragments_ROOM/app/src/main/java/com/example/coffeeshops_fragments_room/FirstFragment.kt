@@ -23,8 +23,8 @@ class FirstFragment : Fragment() {
         override fun run() {
             val db = Room.databaseBuilder(
                     context!!,
-                    CoffeeShopsDatabase::class.java, "CoffeeShops.sqlite"
-            ).createFromAsset("CoffeeShops.sqlite").build()
+                    CoffeeShopsDatabase::class.java, "CoffeeShops_CE.sqlite"
+            ).createFromAsset("CoffeeShops_CE.sqlite").build()
 
             items = ArrayList(db.coffeeshopsDao().getCoffees())
             itemsWithComments = ArrayList(db.coffeeshopsDao().getCoffeesWithComments())
