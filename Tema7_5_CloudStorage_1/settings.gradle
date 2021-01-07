@@ -1,0 +1,2 @@
+include ':app'
+rootProject.name = "Tema7_5_CloudStorage_1"
