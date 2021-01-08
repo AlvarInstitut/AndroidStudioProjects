@@ -1,24 +1,22 @@
-package com.example.coffeeshops_fragments_room
+package com.example.coffeeshops_fragments_firebase
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.TextView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.firestore.DocumentChange
+import com.google.firebase.firestore.FirebaseFirestore
 
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.
  */
 class SecondFragment : Fragment() {
 
-    private lateinit var Comments: ArrayList<Comment>
+    private var Comments = arrayListOf<Comment>()
 
 
     override fun onCreateView(
@@ -26,19 +24,33 @@ class SecondFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-/*      Comments = ArrayList()
-        Comments.add(Comment("Acogedor"))
-        Comments.add(Comment("Buenos precios"))
-        Comments.add(Comment("Servicio algo flojo"))
-*/
+        val db: FirebaseFirestore = FirebaseFirestore.getInstance()
+
         val root = inflater.inflate(R.layout.fragment_second, container, false)
         val texto: TextView =  root.findViewById(R.id.textview_second)
-        val coffee = arguments?.get("coffee") as CoffeeWithComments
-        texto.text = coffee.coffee.title
-        Comments=ArrayList(coffee.coms)
+        val coffee = arguments?.get("coffee") as Coffee
+        val nameDoc = arguments?.get("doc") as String
+        texto.text = coffee.title
+        db.collection("CoffeeShops").document(nameDoc).collection("comentaris").addSnapshotListener { snapshots, e ->
+            for (dc in snapshots!!.documentChanges) {
+                when (dc.type) {
+                    DocumentChange.Type.ADDED -> {
+                        Comments.add(Comment(dc.document.getString("comentari")))
+                    }
+                }
+            }
+        }
 
         val recView: RecyclerView = root.findViewById(R.id.recyclerview_coment)
         recView.setHasFixedSize(true)
+        db.collection("CoffeeShops").document(nameDoc).collection("comentari").
+                get().addOnSuccessListener {
+            val adaptador = CommentsAdapter(Comments)
+
+            recView.adapter = adaptador
+            recView.layoutManager = GridLayoutManager(context, 2)
+
+        }
         val adaptador = CommentsAdapter(Comments)
 
         recView.adapter = adaptador

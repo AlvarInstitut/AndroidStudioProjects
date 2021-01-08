@@ -1,4 +1,4 @@
-package com.example.coffeeshops_fragments_room
+package com.example.coffeeshops_fragments_firebase
 
 import android.graphics.BitmapFactory
 import android.view.LayoutInflater
@@ -38,8 +38,10 @@ class CoffeeAdapter(private val items: ArrayList<Coffee>) : RecyclerView.Adapter
             }
             text.text = t.title
             text1.text = t.subtitle
-            if (t.points!=null)
+            if (t.points!=null) {
                 barstars.rating = t.points.toFloat()
+                points.text=t.points.toString()
+            }
             barstars.onRatingBarChangeListener = RatingBar.OnRatingBarChangeListener { ratingBar: RatingBar, fl: Float, b: Boolean ->
                     points.text = fl.toString()
                 }
@@ -49,7 +51,9 @@ class CoffeeAdapter(private val items: ArrayList<Coffee>) : RecyclerView.Adapter
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): CoffeeViewHolder {
         val itemView = LayoutInflater.from(viewGroup.context).inflate(R.layout.item_coffee, viewGroup, false)
-        return CoffeeViewHolder(itemView)
+        return CoffeeViewHolder(
+            itemView
+        )
     }
 
     override fun onBindViewHolder(viewHolder: CoffeeViewHolder, pos: Int) {
