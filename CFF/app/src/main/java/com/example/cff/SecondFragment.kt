@@ -1,4 +1,4 @@
-package com.example.coffeeshops_fragments_firebase
+package com.example.cff
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -43,7 +43,7 @@ class SecondFragment : Fragment() {
         val recView: RecyclerView = root.findViewById(R.id.recyclerview_coment)
         recView.setHasFixedSize(true)
         db.collection("CoffeeShops").document(nameDoc).collection("comentari").
-                get().addOnSuccessListener {
+        get().addOnSuccessListener {
             val adaptador = CommentsAdapter(Comments)
 
             recView.adapter = adaptador
@@ -61,8 +61,8 @@ class SecondFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-      /*  view.findViewById<Button>(R.id.button_second).setOnClickListener {
-           findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
-        }*/
+        /*  view.findViewById<Button>(R.id.button_second).setOnClickListener {
+             findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
+          }*/
     }
 }

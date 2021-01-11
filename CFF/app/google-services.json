@@ -161,35 +161,6 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:208114596963:android:7dc45700226c71f8b7cc56",
-        "android_client_info": {
-          "package_name": "com.example.coffeeshops_fragments_firebase"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "208114596963-qnospfantd48bnb2o1gu2fq08l4l8sfh.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyBShdxkodKMmYF0CqPK6QwY8eSRoPWyYyI"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "208114596963-qnospfantd48bnb2o1gu2fq08l4l8sfh.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
         "mobilesdk_app_id": "1:208114596963:android:ca14a343045b2b66b7cc56",
         "android_client_info": {
           "package_name": "com.example.coffeeshops_fragments_room"

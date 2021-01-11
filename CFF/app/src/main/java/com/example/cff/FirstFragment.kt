@@ -1,4 +1,4 @@
-package com.example.coffeeshops_fragments_firebase
+package com.example.cff
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -56,12 +56,12 @@ class FirstFragment : Fragment() {
                                 val imatgeRef = storageRef.child(nomImatge)
                                 val ONE_MEGABYTE = (1024 * 1024).toLong()
                                 imatgeRef.getBytes(ONE_MEGABYTE)
-                                        .addOnSuccessListener(OnSuccessListener<ByteArray> {
-                                            // Data for "images/island.jpg" is returns, use this as needed
-                                            item.image=it
-                                        }).addOnFailureListener(OnFailureListener {
-                                            // Handle any errors
-                                        })
+                                    .addOnSuccessListener(OnSuccessListener<ByteArray> {
+                                        // Data for "images/island.jpg" is returns, use this as needed
+                                        item.image=it
+                                    }).addOnFailureListener(OnFailureListener {
+                                        // Handle any errors
+                                    })
                             }
                         }
                     }
@@ -89,5 +89,5 @@ class FirstFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        }
+    }
 }
