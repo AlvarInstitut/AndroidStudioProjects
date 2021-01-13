@@ -1,13 +1,14 @@
 package com.example.t7ex4_audioscf_cs
 
 import android.media.MediaPlayer
+import android.net.Uri
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.net.toUri
 import com.google.android.gms.tasks.OnFailureListener
 import com.google.android.gms.tasks.OnSuccessListener
@@ -18,7 +19,6 @@ import kotlinx.android.synthetic.main.activity_main.*
 import java.io.File
 import java.io.FileInputStream
 import java.io.InputStream
-import java.nio.file.Paths
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
 
         val mStorageRef = FirebaseStorage.getInstance().getReference()
 
-        // Lectura de totes les províncies per a posar-les després al Spinner
+        // Lectura de tots els audios per a posar-les després al Spinner
         // S'hauran de llegir tots els documents de la col·lecció, per tant addSnapshotListener
         // sobre la col·lecció
         val llistaAudios = ArrayList<String>()
@@ -46,7 +46,7 @@ class MainActivity : AppCompatActivity() {
 
         }
 
-        // Inicialització del Spinner, amb un ArrayAdapter passant-li un HashSet ordenat amb les províncies
+        // Inicialització del Spinner, amb un ArrayAdapter passant-li la llista d'audios
         // es recomana fer-ho dins d'un addOnSuccessListener sobre la mateixa col·lecció
         // per assegurar-nos que el HashSet ja té les províncies
         colRef.get().addOnSuccessListener { dataSnapshot ->
@@ -73,16 +73,18 @@ class MainActivity : AppCompatActivity() {
                 audioRef.getFile(localFile)
                         .addOnSuccessListener(OnSuccessListener<FileDownloadTask.TaskSnapshot?> {
                             // Successfully downloaded data to local file
-                            println("Ja està preperat " + localFile.length() + " bytes")
-                            println ("Ja està " + localFile.name)
-                            val inpStr = FileInputStream(localFile)
-                            for (i in 1..10)
-                                println("Ja està " + inpStr.read().toString())
-                            inpStr.close()
-                            mediaPlayer=MediaPlayer.create(pantPrincipal, R.raw.aquiesnadal)
+                            //val myUri: Uri = Uri.parse(localFile.name)
+                            //mediaPlayer=MediaPlayer.create(pantPrincipal, localFile.toUri())
                             //mediaPlayer.prepare()
-                            //mediaPlayer.setDataSource(pantPrincipal, localFile.toUri())
-                            //mediaPlayer.prepareAsync()
+                            mediaPlayer.reset()
+                            //mediaPlayer.setDataSource(localFile)
+                            //mediaPlayer.stop()
+
+                            // SI QUE FUNCIONA
+                            val inputStream = FileInputStream(localFile)
+                            mediaPlayer.setDataSource(inputStream.fd)
+                            inputStream.close()
+                            mediaPlayer.prepareAsync()
 
                         }).addOnFailureListener(OnFailureListener {
                             // Handle failed download
@@ -98,9 +100,10 @@ class MainActivity : AppCompatActivity() {
         play.setOnClickListener {
             //mediaPlayer?.seekTo(0)
             //mediaPlayer.prepare()
-            mediaPlayer?.start() }
+            mediaPlayer.start() }
         stop.setOnClickListener {
-            mediaPlayer?.stop()
+            mediaPlayer.stop()
+            mediaPlayer.prepareAsync()
             //mediaPlayer?.seekTo(0)
 
         }
