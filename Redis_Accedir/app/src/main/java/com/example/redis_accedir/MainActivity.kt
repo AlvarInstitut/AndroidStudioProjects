@@ -5,10 +5,8 @@ import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.TextView
 import kotlinx.android.synthetic.main.activity_main.*
 import redis.clients.jedis.Jedis
-import java.awt.font.TextAttribute
 
 class MainActivity : AppCompatActivity() {
 
@@ -24,7 +22,6 @@ class MainActivity : AppCompatActivity() {
 
             claus = con.keys("*").sorted()
             //con.close()
-
 
         }
     }
@@ -56,9 +53,7 @@ class MainActivity : AppCompatActivity() {
                 var altreThread: Thread = object : Thread() {
                     override fun run() {
                         area.setText("")
-                        println("Aiiii" + position)
                         val clau = claus?.get(position)
-                        println("Aiiii" + clau)
                         val tip = con.type(clau)
                         when (tip){
                             "string" -> area.setText(con.get(clau))
@@ -67,27 +62,25 @@ class MainActivity : AppCompatActivity() {
                                     area.append(camp + " -> " + con.hget(clau,camp) + "\n")
                             }
                             "list" -> {
-                                for (camp in con.lrange(clau,0,-1))
-                                    area.append(camp + "\n")
+                                for (e in con.lrange(clau,0,-1))
+                                    area.append(e + "\n")
                             }
                             "set" -> {
-                                for (camp in con.smembers(clau))
-                                    area.append(camp + "\n")
+                                for (e in con.smembers(clau))
+                                    area.append(e + "\n")
                             }
                             "zset" -> {
-                                for (camp in con.zrevrangeWithScores(clau,0,-1))
-                                    area.append(camp.element + " -> " + camp.score + "\n")
+                                for (e in con.zrevrangeWithScores(clau,0,-1))
+                                    area.append(e.element + " -> " + e.score + "\n")
                             }
                         }
 
                     }
                 }
                 altreThread.start()
-                altreThread.join()
+                altreThread.join()  //per senzillesa, no tractem l'excepció
             }
         }
 
     }
-
-
 }

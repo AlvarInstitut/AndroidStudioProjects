@@ -26,13 +26,9 @@ class SecondFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-/*      Comments = ArrayList()
-        Comments.add(Comment("Acogedor"))
-        Comments.add(Comment("Buenos precios"))
-        Comments.add(Comment("Servicio algo flojo"))
-*/
         val root = inflater.inflate(R.layout.fragment_second, container, false)
         val texto: TextView =  root.findViewById(R.id.textview_second)
+
         val coffee = arguments?.get("coffee") as CoffeeWithComments
         texto.text = coffee.coffee.title
         Comments=ArrayList(coffee.coms)
@@ -50,8 +46,8 @@ class SecondFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-      /*  view.findViewById<Button>(R.id.button_second).setOnClickListener {
-           findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
-        }*/
+        /*  view.findViewById<Button>(R.id.button_second).setOnClickListener {
+             findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
+          }*/
     }
 }

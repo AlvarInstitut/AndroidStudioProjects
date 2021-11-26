@@ -4,7 +4,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import kotlinx.android.synthetic.main.activity_main.*
-import net.xqj.exist.ExistXQDataSource
+import org.exist.xqj.XQDataSource
+import org.exist.xqj.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -15,18 +16,18 @@ class MainActivity : AppCompatActivity() {
     private var sqlThread: Thread = object : Thread() {
         override fun run() {
 
-            val s = ExistXQDataSource()
-            s.setProperty("serverName", "89.36.214.106")
-            s.setProperty("port", "8080")
+            val s = XQDataSource()
+//            s.setProperty("serverName", "89.36.214.106")
+  //          s.setProperty("port", "8080")
 
-            val conn = s.getConnection()
+            val conn = s.getConnection("admin","admin")
             println("Connexió feta")
             val sent = "//ruta/nom"
             val cons = conn.prepareExpression (sent)
             val rs = cons.executeQuery ()
 
             while (rs.next())
-                claus?.add(rs.getItemAsString(null))
+                claus?.add(rs.getItemAsString())
 
         }
     }

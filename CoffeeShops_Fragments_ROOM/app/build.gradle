@@ -2,7 +2,6 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
 }
-apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 30
@@ -32,6 +31,8 @@ android {
         jvmTarget = '1.8'
     }
 }
+
+apply plugin: 'kotlin-kapt'
 
 dependencies {
 

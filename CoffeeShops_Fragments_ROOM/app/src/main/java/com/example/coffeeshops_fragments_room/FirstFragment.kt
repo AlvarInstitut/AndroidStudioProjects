@@ -22,9 +22,9 @@ class FirstFragment : Fragment() {
     private var roomThread: Thread = object : Thread() {
         override fun run() {
             val db = Room.databaseBuilder(
-                    context!!,
-                    CoffeeShopsDatabase::class.java, "CoffeeShops.sqlite"
-            ).createFromAsset("CoffeeShops.sqlite").build()
+                context!!,
+                CoffeeShopsDatabase::class.java, "CoffeeShops_Com.sqlite"
+            ).createFromAsset("CoffeeShops_Com.sqlite").build()
 
             items = ArrayList(db.coffeeshopsDao().getCoffees())
             itemsWithComments = ArrayList(db.coffeeshopsDao().getCoffeesWithComments())
@@ -61,5 +61,5 @@ class FirstFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        }
+    }
 }

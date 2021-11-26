@@ -4,7 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName="Local")
+@Entity(tableName="LOCAL")
 data class Coffee (
     @PrimaryKey val num: Int?,
     @ColumnInfo(name = "nom") val title: String?,

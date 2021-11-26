@@ -3,10 +3,7 @@ package com.example.tema7_firebaserd
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.google.firebase.database.*
-
 import kotlinx.android.synthetic.main.activity_main.*
-
-class Missatge(val nom: String, val contingut: String)
 
 class MainActivity : AppCompatActivity() {
 
@@ -25,10 +22,9 @@ class MainActivity : AppCompatActivity() {
         // Exemple de guardar dades. Primer sobre a1, i despŕes sobre la llista xat
         boto.setOnClickListener {
             refA1.setValue(text.text.toString())
-            xat.push().setValue(Missatge("Usuari1",text.text.toString()))
+            xat.push().setValue(Missatge("Usuari1", text.text.toString()))
             text.setText("")
         }
-
         // Exemple de listener de lectura única addListenerForSingleValue()
         // Per a posar el títol. Sobre nomXat
         nomXat.addListenerForSingleValueEvent(object : ValueEventListener {
@@ -53,13 +49,12 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
-
         // Exemple de listener d'una llista addChildEventListener()
         // Per a posar tota la llista de missatges. Sobre xat
         xat.addChildEventListener(object : ChildEventListener {
             override fun onChildAdded(dataSnapshot: DataSnapshot, s: String?) {
                 area.append(
-                        dataSnapshot.child("nom").getValue(String::class.java) + ": " + dataSnapshot.child("contingut").getValue(String::class.java) + "\n"                    );
+                    dataSnapshot.child("nom").getValue(String::class.java) + ": " + dataSnapshot.child("contingut").getValue(String::class.java) + "\n"                    );
             }
             override fun onChildChanged(dataSnapshot: DataSnapshot, s: String?) {
             }
@@ -70,5 +65,7 @@ class MainActivity : AppCompatActivity() {
             override fun onCancelled(databaseError: DatabaseError) {
             }
         })
+
     }
 }
+
