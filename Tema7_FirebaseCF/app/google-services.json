@@ -463,6 +463,35 @@
     },
     {
       "client_info": {
+        "mobilesdk_app_id": "1:1049990112545:android:714be3a976a23811fc4a60",
+        "android_client_info": {
+          "package_name": "com.example.tema7_5_cloudstorage_1"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1049990112545-ol896u8eadqaqle3r0n0tqlbgo8bn0fu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCb48_haThyQ5Zb9wabpbKyqdYPTZON4ns"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1049990112545-ol896u8eadqaqle3r0n0tqlbgo8bn0fu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:1049990112545:android:4006d7562ec105f1fc4a60",
         "android_client_info": {
           "package_name": "com.example.tema7_firebasecf"
@@ -492,9 +521,38 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1049990112545:android:7227f3cabbb726e9fc4a60",
+        "mobilesdk_app_id": "1:1049990112545:android:df8db8fd5021838dfc4a60",
         "android_client_info": {
           "package_name": "com.example.tema7_firebaserd"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1049990112545-ol896u8eadqaqle3r0n0tqlbgo8bn0fu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCb48_haThyQ5Zb9wabpbKyqdYPTZON4ns"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1049990112545-ol896u8eadqaqle3r0n0tqlbgo8bn0fu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1049990112545:android:c6fecfa78be94f34fc4a60",
+        "android_client_info": {
+          "package_name": "com.example.tema7_firegabecf"
         }
       },
       "oauth_client": [
