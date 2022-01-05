@@ -1,2 +1,2 @@
 include ':app'
-rootProject.name = "CoffeeShops_Fragments_ROOM"
+rootProject.name = "CoffeeShops_Fragments_FIREBASE"

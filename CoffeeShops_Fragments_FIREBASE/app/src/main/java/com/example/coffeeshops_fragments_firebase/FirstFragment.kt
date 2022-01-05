@@ -53,15 +53,15 @@ class FirstFragment : Fragment() {
                             val nomImatge = dc.document.getString("imatge")
 
                             if (nomImatge != null) {
-                                val imatgeRef = storageRef.child(nomImatge)
+                                val imatgeRef = storageRef.child("CoffeeShops/" + nomImatge)
                                 val ONE_MEGABYTE = (1024 * 1024).toLong()
                                 imatgeRef.getBytes(ONE_MEGABYTE)
-                                        .addOnSuccessListener(OnSuccessListener<ByteArray> {
-                                            // Data for "images/island.jpg" is returns, use this as needed
-                                            item.image=it
-                                        }).addOnFailureListener(OnFailureListener {
-                                            // Handle any errors
-                                        })
+                                    .addOnSuccessListener(OnSuccessListener<ByteArray> {
+                                        // Data for "images/island.jpg" is returns, use this as needed
+                                        item.image=it
+                                    }).addOnFailureListener(OnFailureListener {
+                                        // Handle any errors
+                                    })
                             }
                         }
                     }
@@ -89,5 +89,5 @@ class FirstFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        }
+    }
 }
