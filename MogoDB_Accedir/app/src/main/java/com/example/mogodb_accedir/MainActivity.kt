@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
 //            val llibre = llibres.first()
 //            cont += llibre.get("titulo").toString() + " --> " + llibre.get("precio")
             for (llibre in llibres)
-                cont += llibre.get("titulo").toString() + " --> " + llibre.get("precio")
+                cont += llibre.get("titulo").toString() + " --> " + llibre.get("precio") + "\n"
 
             con.close()
 
