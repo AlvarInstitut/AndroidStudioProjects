@@ -1,13 +1,10 @@
-package com.example.mogodb_accedir
+package com.example.exist_db_accedir
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.mongodb.MongoClient
-import com.mongodb.MongoClientURI
+
 import kotlinx.android.synthetic.main.activity_main.*
-import org.bson.Document
-import com.mongodb.DBCursor
-import com.mongodb.client.FindIterable
+import net.xqj.exist.ExistXQDataSource
 
 class MainActivity : AppCompatActivity() {
     internal var cont: String = ""
@@ -15,22 +12,16 @@ class MainActivity : AppCompatActivity() {
 
     private var sqlThread: Thread = object : Thread() {
         override fun run() {
+            val s = ExistXQDataSource()
+            s.setProperty("serverName", "89.36.214.106")
+            val conn = s.getConnection()
+            println("Connexió feta")
+            val sent = "for \$alumne in doc(\"/db/Tema9/classe.xml\")//alumne order by \$alumne/cognoms return \$alumne"
 
-            val con = MongoClient(MongoClientURI("mongodb://ad:ieselcaminas@89.36.214.106/?authSource=test"))
-            val bd = con.getDatabase("test")
+            val rs = conn.createExpression().executeQuery(sent)
 
-            val ordenar = Document()
-            ordenar.put("precio", -1)
-
-            val llibres = bd.getCollection("libro").find()
-            //val docs: FindIterable<Document> = bd.getCollection("libro").find()
-//            val llibre = llibres.first()
-//            cont += llibre.get("titulo").toString() + " --> " + llibre.get("precio")
-            for (llibre in llibres)
-                cont += llibre.get("titulo").toString() + " --> " + llibre.get("precio") + "\n"
-
-            con.close()
-
+            while (rs.next())
+                  cont += rs.getItemAsString(null) + "\n"
         }
     }
 
