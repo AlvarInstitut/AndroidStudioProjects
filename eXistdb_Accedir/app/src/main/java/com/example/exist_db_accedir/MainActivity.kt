@@ -12,13 +12,15 @@ class MainActivity : AppCompatActivity() {
 
     private var sqlThread: Thread = object : Thread() {
         override fun run() {
+
             val s = ExistXQDataSource()
             s.setProperty("serverName", "89.36.214.106")
             val conn = s.getConnection()
             println("Connexió feta")
             val sent = "for \$alumne in doc(\"/db/Tema9/classe.xml\")//alumne order by \$alumne/cognoms return \$alumne"
 
-            val rs = conn.createExpression().executeQuery(sent)
+            val cons = conn.prepareExpression(sent)
+            val rs = cons.executeQuery()
 
             while (rs.next())
                   cont += rs.getItemAsString(null) + "\n"

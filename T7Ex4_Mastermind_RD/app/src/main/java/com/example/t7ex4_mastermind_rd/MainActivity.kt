@@ -6,7 +6,7 @@ import android.view.View
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.activity_main.*
 
-class Jugada(var nom: String, var tirada: String, var colocades: String, var desordenades: String)
+class Jugada(var nom: String, var tirada: String, var colocades: Int, var desordenades: Int)
 
 class MainActivity : AppCompatActivity() {
     var secret =""
@@ -85,7 +85,7 @@ class MainActivity : AppCompatActivity() {
         val comp = comprova(tirada.getText().toString(), secret)
 
         tirades.push()
-            .setValue(Jugada(jugador.getText().toString(), tirada.getText().toString(), comp[0].toString(), comp[1].toString()), null)
+            .setValue(Jugada(jugador.getText().toString(), tirada.getText().toString(), comp[0], comp[1]), null)
         tirada.setText("")
         tirada.requestFocus()
     }
